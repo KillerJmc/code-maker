@@ -1,9 +1,12 @@
 package com.jmc.codemaker.core;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
+import java.util.Map;
 
 /**
  * CodeMaker核心类
@@ -12,7 +15,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
  */
 public class CodeMakerCore {
     public static void make(DataSourceConfig dsc, String modulePath, String packageName,
-                            String authorName, String[] tableNames) {
+                            String authorName, String[] tableNames, boolean autowired) {
         // 自动代码生成器
         var mpg = new AutoGenerator();
 
@@ -49,6 +52,15 @@ public class CodeMakerCore {
             // 设置列名转化为对象时驼峰代替下划线
             setColumnNaming(NamingStrategy.underline_to_camel);
         }});
+
+        // 设置自定义属性注入
+        mpg.setCfg(new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // 用户是否自动注入
+                this.setMap(Map.of("autowired", autowired));
+            }
+        });
 
         // 设置模板引擎
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());

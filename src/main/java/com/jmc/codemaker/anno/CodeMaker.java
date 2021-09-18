@@ -21,4 +21,10 @@ public @interface CodeMaker {
      * 需要导入的数据库表名
      */
     String[] tableNames();
+
+    /**
+     * 需不需要自动注入层级属性（@autowired）
+     * @since 1.1
+     */
+    boolean autowired() default false;
 }

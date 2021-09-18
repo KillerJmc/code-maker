@@ -46,7 +46,10 @@ public class CodeMakerConfiguration implements InitializingBean {
         var appJavaPath = Path.of(modulePath,
                 "src/main/java", appClassName.replace('.', '/') + ".java");
 
-        String[] tableNames = Class.forName(appClassName).getAnnotation(CodeMaker.class).tableNames();
+        // 获取CodeMaker注解
+        var anno = Class.forName(appClassName).getAnnotation(CodeMaker.class);
+        String[] tableNames = anno.tableNames();
+        boolean autowired = anno.autowired();
         String packageName = appClassName.substring(0, appClassName.lastIndexOf('.'));
 
         // 以包名的二级域名作为作者名称
@@ -58,7 +61,7 @@ public class CodeMakerConfiguration implements InitializingBean {
         var blueMsg = "\033[34;24m%s\033[0m";
         Outs.newLine(() -> {
             // 开始自动生成代码
-            CodeMakerCore.make(dataSourceProperties, modulePath, packageName, authorName, tableNames);
+            CodeMakerCore.make(dataSourceProperties, modulePath, packageName, authorName, tableNames, autowired);
             System.out.printf(blueMsg, "CodeMaker: 代码自动生成完毕！\n");
 
             // 清除项目中无用的文件
