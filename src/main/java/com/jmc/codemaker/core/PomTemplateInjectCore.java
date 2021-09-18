@@ -22,7 +22,8 @@ public class PomTemplateInjectCore {
         var paramMap = Map.of(
                 "groupId", (Object) Strs.subExclusive(pomInfo, "<groupId>", "</groupId>"),
                 "artifactId", Strs.subExclusive(pomInfo, "<artifactId>", "</artifactId>"),
-                "version", Strs.subExclusive(pomInfo, "<version>", "</version>"),
+                // 版本号默认 1.0.0
+                "version", "1.0.0",
                 "name", Strs.subExclusive(pomInfo, "<name>", "</name>")
         );
 
