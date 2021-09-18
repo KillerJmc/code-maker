@@ -3,9 +3,7 @@ package com.jmc.codemaker.core;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.jmc.codemaker.config.DataSourceProperties;
 import com.jmc.io.Files;
-import com.jmc.lang.extend.Strs;
 import com.jmc.lang.extend.Tries;
-import org.apache.ibatis.io.Resources;
 
 import java.nio.file.Path;
 import java.util.Map;

@@ -18,7 +18,5 @@ public class ${table.serviceImplName} implements ${table.serviceName} {
 <#--如果自动注入-->
 <#if cfg.autowired>
     private final ${table.mapperName} ${table.mapperName? uncap_first};
-
 </#if>
-
 }

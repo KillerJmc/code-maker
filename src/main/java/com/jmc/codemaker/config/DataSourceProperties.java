@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class DataSourceProperties extends DataSourceConfig {
     public DataSourceProperties() {
         this.setDriverName("com.mysql.cj.jdbc.Driver");
-        this.setUrl("jdbc:mysql:///jmc?serverTimeZone=UTC");
+        this.setUrl("jdbc:mysql:///jmc");
         this.setUsername("root");
         this.setPassword("root");
     }

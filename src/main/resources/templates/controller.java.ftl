@@ -17,7 +17,5 @@ public class ${table.controllerName} {
 <#--如果自动注入-->
 <#if cfg.autowired>
     private final ${table.serviceName} ${table.serviceName? uncap_first};
-
 </#if>
-
 }
