@@ -21,7 +21,13 @@ public @interface CodeMaker {
     String[] tables();
 
     /**
-     * 需不需要自动注入层级属性（@autowired）
+     * 数据库表前缀，前缀不加入JavaBean类名
+     * @since 1.4
+     */
+    String[] tablePrefix() default {};
+
+    /**
+     * 自动注入层级属性（@autowired）
      * @since 1.1
      */
     boolean autowired() default false;

@@ -49,6 +49,7 @@ public class CodeMakerConfiguration implements InitializingBean {
         // 获取CodeMaker注解
         var anno = Class.forName(appClassName).getAnnotation(CodeMaker.class);
         String[] tables = anno.tables();
+        String[] tablePrefix = anno.tablePrefix();
         boolean autowired = anno.autowired();
         String packageName = appClassName.substring(0, appClassName.lastIndexOf('.'));
 
@@ -61,7 +62,7 @@ public class CodeMakerConfiguration implements InitializingBean {
         var blueMsg = "\033[34;24m%s\033[0m";
         Outs.newLine(() -> {
             // 开始自动生成代码
-            CodeMakerCore.make(dataSourceProperties, modulePath, packageName, authorName, tables, autowired);
+            CodeMakerCore.make(dataSourceProperties, modulePath, packageName, authorName, tables, tablePrefix, autowired);
             System.out.printf(blueMsg, "CodeMaker: 代码自动生成完毕！\n");
 
             // 清除项目中无用的文件

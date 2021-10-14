@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class CodeMakerCore {
     public static void make(DataSourceConfig dsc, String modulePath, String packageName,
-                            String authorName, String[] tableNames, boolean autowired) {
+                            String authorName, String[] tableNames, String[] tablePrefix, boolean autowired) {
         // 自动代码生成器
         var mpg = new AutoGenerator();
 
@@ -30,6 +30,8 @@ public class CodeMakerCore {
             setAuthor(authorName);
             // service类统一命名为xxxService
             setServiceName("%sService");
+            // dao类统一命名为xxxDao
+            setMapperName("%sDao");
             // 生成完不自动打开系统资源管理器
             setOpen(false);
         }});
@@ -43,12 +45,16 @@ public class CodeMakerCore {
             setParent(packageName);
             // 设置数据层包名为pojo
             setEntity("pojo");
+            // 设置数据访问层包名为dao
+            setMapper("dao");
         }});
 
         // 设置策略配置
         mpg.setStrategy(new StrategyConfig() {{
             // 设置需要导入的数据库表名
             setInclude(tableNames);
+            // 设置表前缀
+            setTablePrefix(tablePrefix);
             // 设置列名转化为对象时驼峰代替下划线
             setColumnNaming(NamingStrategy.underline_to_camel);
         }});
@@ -58,7 +64,10 @@ public class CodeMakerCore {
             @Override
             public void initMap() {
                 // 用户是否自动注入
-                this.setMap(Map.of("autowired", autowired));
+                this.setMap(Map.of(
+                        // 是否自动注入层级架构
+                        "autowired", autowired
+                ));
             }
         });
 
