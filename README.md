@@ -4,7 +4,7 @@
 
 Generate code for a **Spring Boot** project.
 
-(This is a project based on **mybatis-plus AutoGenerator**.)
+(This is a project based on **[mybatis-plus generator](https://github.com/baomidou/generator)**.)
 
 ## Usage
 
@@ -16,7 +16,7 @@ Generate code for a **Spring Boot** project.
 
 ## Function
 
-+ Generate **multi-layered architecture** (pojo, mapper, service, controller).
++ Generate **multi-layered architecture** (pojo, dao, service, controller).
 + Clean the useless files of the project.
 + Inject a **yml template** for the project.
 + Inject a **pom template** for the project.
@@ -24,3 +24,6 @@ Generate code for a **Spring Boot** project.
 
 ## Feature
 + You can add  **autowired** arg on **@CodeMaker** to specify whether to add **the dependencies between layers**.
++ You can add  **tablePrefix** arg on **@CodeMaker** to specify the **table prefixes**, these prefixes **will not**
+join the class name of **Java Bean** corresponding to them.
+

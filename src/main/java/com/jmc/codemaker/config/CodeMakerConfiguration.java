@@ -1,17 +1,21 @@
 package com.jmc.codemaker.config;
 
 import com.jmc.codemaker.anno.CodeMaker;
+import com.jmc.codemaker.common.Const;
 import com.jmc.codemaker.core.*;
 import com.jmc.io.Files;
 import com.jmc.lang.extend.Outs;
 import com.jmc.lang.extend.Strs;
-import org.apache.ibatis.io.Resources;
+import com.jmc.lang.extend.Tries;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * 激活自动生成代码的配置类
@@ -20,71 +24,100 @@ import java.nio.file.Path;
  */
 @Configuration
 @EnableConfigurationProperties(DataSourceProperties.class)
+@RequiredArgsConstructor
 public class CodeMakerConfiguration implements InitializingBean {
-    private DataSourceProperties dataSourceProperties;
-
-    @Autowired
-    public void setDataSourceProperties(DataSourceProperties dataSourceProperties) {
-        this.dataSourceProperties = dataSourceProperties;
-    }
+    private final DataSourceProperties dataSourceProperties;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        var classPathUri = Resources.getResourceURL("").toURI();
+        // 模块路径
+        var modulePath = getModulePath();
 
-        // 通过访问classPath的上级目录获取模块根路径
-        String modulePath = Path.of(classPathUri).getParent().getParent().toString();
+        // 启动类的Class对象
+        var appClass = getAppClass(modulePath);
 
-        // 启动类名称要求以Application结尾
-        var appFile = Files.findAny(Path.of(classPathUri).toString(), "Application.class");
-        if (appFile == null) {
-            throw new RuntimeException("找不到启动类，请检查启动类名称是否以Application结尾");
-        }
+        // 启动类的包名
+        var appPackageName = appClass.getPackageName();
 
-        var appClassName = Strs.subExclusive(appFile.getAbsolutePath(),
-                "classes\\", ".class").replace('\\', '.');
-        var appJavaPath = Path.of(modulePath,
-                "src/main/java", appClassName.replace('.', '/') + ".java");
+        // 启动类java文件路径
+        var appJavaPath = Files.findAny(modulePath, ".java").toPath();
 
-        // 获取CodeMaker注解
-        var anno = Class.forName(appClassName).getAnnotation(CodeMaker.class);
+        // 以包名的二级域名作为作者名称并将首字母大写
+        var authorName = Strs.capitalize(appPackageName.split("\\.")[1]);
+
+        // 获取CodeMaker注解内容
+        var anno = appClass.getAnnotation(CodeMaker.class);
         String[] tables = anno.tables();
         String[] tablePrefix = anno.tablePrefix();
         boolean autowired = anno.autowired();
-        String packageName = appClassName.substring(0, appClassName.lastIndexOf('.'));
 
-        // 以包名的二级域名作为作者名称
-        var tmp = packageName.split("\\.")[1];
-        // 首字母大写
-        String authorName = Character.toUpperCase(tmp.charAt(0)) + tmp.substring(1);
-
-
-        var blueMsg = "\033[34;24m%s\033[0m";
         Outs.newLine(() -> {
             // 开始自动生成代码
-            CodeMakerCore.make(dataSourceProperties, modulePath, packageName, authorName, tables, tablePrefix, autowired);
-            System.out.printf(blueMsg, "CodeMaker: 代码自动生成完毕！\n");
+            CodeMakerCore.make(dataSourceProperties, modulePath, appPackageName,
+                    authorName, tables, tablePrefix, autowired);
 
             // 清除项目中无用的文件
             FileCleanCore.clean(modulePath);
-            System.out.printf(blueMsg, "CodeMaker: 无用文件清理完毕！\n");
 
             // yml模板注入
             YmlTemplateInjectCore.inject(dataSourceProperties, modulePath);
-            System.out.printf(blueMsg, "CodeMaker: yml文件生成完毕！\n");
 
             // pom文件模板注入
             PomTemplateInjectCore.inject(modulePath);
-            System.out.printf(blueMsg, "CodeMaker: pom文件模板注入完毕！\n");
 
             // 清除启动类中CodeMaker的相关代码
             ApplicationCleanCore.clean(appJavaPath);
-            System.out.printf(blueMsg, "CodeMaker: 清除CodeMaker依赖完毕！\n");
 
-            System.out.printf(blueMsg, "\nCodeMaker: 项目构建成功！\n");
+            System.out.printf(Const.BLUE_MSG, "\nCodeMaker: 项目构建成功！\n");
         });
 
         // 强制停止运行
         Runtime.getRuntime().halt(0);
+    }
+
+    /**
+     * 获取模块路径
+     * @return 模块路径字符串
+     */
+    private String getModulePath() throws URISyntaxException {
+        // 类加载路径URI
+        var classPathUri = Objects.requireNonNull(
+                Thread.currentThread().getContextClassLoader().getResource("")
+        ).toURI();
+
+        // 通过访问classPath的上级目录获取模块根路径
+        return Path.of(classPathUri)
+                   .getParent()
+                   .getParent()
+                   .toString();
+    }
+
+    /**
+     * 获取启动类的Class对象
+     * @param modulePath 模块路径
+     * @return 启动类的Class对象
+     */
+    private Class<?> getAppClass(String modulePath) {
+        var srcPath = Path.of(modulePath, "/src/main/java").toAbsolutePath().toString();
+
+        // 模块中所有java源文件
+        var javaFiles = Files.findFiles(srcPath, ".java");
+
+        if (javaFiles.size() == 0) {
+            throw new RuntimeException("找不到启动类！");
+        }
+
+        if (javaFiles.size() > 1) {
+            throw new RuntimeException("模块中类过多！模块中只允许有一个类，且这个类必须是启动类。");
+        }
+
+        // 通过java文件路径推算出完整类名
+        var appClassName = Strs
+                // 截取包名和类名
+                .subExclusive(javaFiles.get(0).getAbsolutePath(), srcPath + File.separator, ".java")
+                // 把文件分隔符全部替换成点
+                .replace(File.separatorChar, '.');
+
+        return Tries.tryReturnsT(() -> Class.forName(appClassName));
     }
 }

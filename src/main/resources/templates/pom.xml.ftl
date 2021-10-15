@@ -9,7 +9,7 @@
         <version>2.5.5</version>
     </parent>
 
-    <#-- these args will be injected by class PomTemplateInjectCore -->
+<#-- these args will be injected by class PomTemplateInjectCore -->
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>

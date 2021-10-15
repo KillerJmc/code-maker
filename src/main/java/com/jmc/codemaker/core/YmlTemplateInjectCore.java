@@ -1,6 +1,7 @@
 package com.jmc.codemaker.core;
 
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.jmc.codemaker.common.Const;
 import com.jmc.codemaker.config.DataSourceProperties;
 import com.jmc.io.Files;
 import com.jmc.lang.extend.Tries;
@@ -24,22 +25,24 @@ public class YmlTemplateInjectCore {
      */
     private static final String TARGET_YML_PATH = "/src/main/resources/application.yml";
 
-    public static void inject(DataSourceProperties dataSourceProperties, String modulePath) {
+    public static void inject(DataSourceProperties prop, String modulePath) {
         var ymlFile = Path.of(modulePath, TARGET_YML_PATH);
 
         // 删除默认的properties文件
         Files.findDels(ymlFile.getParent().toFile(), ".properties");
 
-        var paramMap = Map.of(
-                "url", (Object) dataSourceProperties.getUrl(),
-                "username", dataSourceProperties.getUsername(),
-                "password", dataSourceProperties.getPassword()
-        );
+        var paramMap = Tries.tryReturnsT(() -> Map.of(
+                "url", (Object) prop.getUrl(),
+                "username", prop.getUsername(),
+                "password", prop.getPassword()
+        ));
 
         var engine = new FreemarkerTemplateEngine() {{
-            init(null);
+            init(getConfigBuilder());
         }};
 
-        Tries.tryThis(() -> engine.writer(paramMap, YML_TEMPLATE_PATH, ymlFile.toString()));
+        Tries.tryThis(() -> engine.writer(paramMap, YML_TEMPLATE_PATH, ymlFile.toFile()));
+
+        System.out.printf(Const.BLUE_MSG, "CodeMaker: yml文件生成完毕！\n");
     }
 }

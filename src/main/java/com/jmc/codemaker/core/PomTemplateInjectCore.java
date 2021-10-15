@@ -1,10 +1,12 @@
 package com.jmc.codemaker.core;
 
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.jmc.codemaker.common.Const;
 import com.jmc.io.Files;
 import com.jmc.lang.extend.Strs;
 import com.jmc.lang.extend.Tries;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -22,15 +24,16 @@ public class PomTemplateInjectCore {
         var paramMap = Map.of(
                 "groupId", (Object) Strs.subExclusive(pomInfo, "<groupId>", "</groupId>"),
                 "artifactId", Strs.subExclusive(pomInfo, "<artifactId>", "</artifactId>"),
-                // 版本号默认 1.0.0
-                "version", "1.0.0",
+                "version", "1.0.0", // 版本号默认 1.0.0
                 "name", Strs.subExclusive(pomInfo, "<name>", "</name>")
         );
 
         var engine = new FreemarkerTemplateEngine() {{
-            init(null);
+            init(this.getConfigBuilder());
         }};
 
-        Tries.tryThis(() -> engine.writer(paramMap, POM_TEMPLATE_PATH, pomPath));
+        Tries.tryThis(() -> engine.writer(paramMap, POM_TEMPLATE_PATH, new File(pomPath)));
+
+        System.out.printf(Const.BLUE_MSG, "CodeMaker: pom文件模板注入完毕！\n");
     }
 }

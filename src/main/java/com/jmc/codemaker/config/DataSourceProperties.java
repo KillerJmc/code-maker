@@ -1,6 +1,6 @@
 package com.jmc.codemaker.config;
 
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -8,12 +8,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0
  * @author Jmc
  */
+@Data
 @ConfigurationProperties("spring.datasource")
-public class DataSourceProperties extends DataSourceConfig {
-    public DataSourceProperties() {
-        this.setDriverName("com.mysql.cj.jdbc.Driver");
-        this.setUrl("jdbc:mysql:///jmc");
-        this.setUsername("root");
-        this.setPassword("root");
-    }
+public class DataSourceProperties {
+    private String url = "jdbc:mysql:///jmc";
+    private String username = "root";
+    private String password = "root";
 }

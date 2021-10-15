@@ -1,5 +1,6 @@
 package com.jmc.codemaker.core;
 
+import com.jmc.codemaker.common.Const;
 import com.jmc.lang.extend.Tries;
 
 import java.nio.file.Files;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
  * @author Jmc
  */
 public class ApplicationCleanCore {
+    /**
+     * 被清除行的标志
+     */
     private static final String SYMBOL = "CodeMaker";
 
     public static void clean(Path appJavaPath) {
@@ -23,5 +27,7 @@ public class ApplicationCleanCore {
                      .collect(Collectors.joining("\n"))
             )
         );
+
+        System.out.printf(Const.BLUE_MSG, "CodeMaker: 清除CodeMaker依赖完毕！\n");
     }
 }
