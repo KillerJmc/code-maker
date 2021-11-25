@@ -6,6 +6,29 @@
 
 （这是一个基于 **[mybatis-plus generator](https://gitee.com/baomidou/generator)** 的项目）
 
+## 依赖
++ Maven
+
+1. 添加仓库
+```xml
+<repositories>
+    <repository>
+        <id>jmc-repo</id>
+        <url>https://killerjmc.gitee.io/code-maker/repo/maven</url>
+    </repository>
+</repositories>
+```
+
+2. 添加依赖
+```xml
+<dependency>
+    <groupId>com.jmc</groupId>
+    <artifactId>code-maker</artifactId>
+    <version>latest version</version>
+</dependency>
+```
+
+
 ## 用法
 
 1. 创建一个新的 **Spring Boot** 项目

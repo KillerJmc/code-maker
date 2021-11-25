@@ -15,8 +15,15 @@ import java.util.Map;
  * @author Jmc
  */
 public class PomTemplateInjectCore {
+    /**
+     * pom模板路径
+     */
     private static final String POM_TEMPLATE_PATH = "templates/pom.xml.ftl";
 
+    /**
+     * 把模板注入pom.xml
+     * @param modulePath 模块路径
+     */
     public static void inject(String modulePath) {
         String pomPath = modulePath + "/pom.xml";
 

@@ -18,6 +18,10 @@ public class FileCleanCore {
      */
     private static final String[] RETAINED_FILES = { "src", "pom.xml", ".iml", "target", ".idea" };
 
+    /**
+     * 清理无用文件
+     * @param modulePath 模块路径
+     */
     public static void clean(String modulePath) {
         File[] fs = new File(modulePath).listFiles();
         Assert.notNull(fs, "fs can't be null");

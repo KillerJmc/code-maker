@@ -15,6 +15,16 @@ import java.util.Map;
  * @author Jmc
  */
 public class CodeMakerCore {
+    /**
+     * 执行代码生成
+     * @param prop 数据源信息类
+     * @param modulePath 模块路径
+     * @param packageName 模块根包名
+     * @param authorName 作者名称
+     * @param tableNames 需映射的表名
+     * @param tablePrefix 表前缀
+     * @param autowired 是否自动注入
+     */
     public static void make(DataSourceProperties prop, String modulePath, String packageName,
                             String authorName, String[] tableNames, String[] tablePrefix, boolean autowired) {
         FastAutoGenerator

@@ -18,6 +18,10 @@ public class ApplicationCleanCore {
      */
     private static final String SYMBOL = "CodeMaker";
 
+    /**
+     * 清理本应用依赖
+     * @param appJavaPath 启动类java文件路径
+     */
     public static void clean(Path appJavaPath) {
         Tries.tryThis(() ->
             Files.writeString(appJavaPath,

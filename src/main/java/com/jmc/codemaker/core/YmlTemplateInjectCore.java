@@ -25,6 +25,11 @@ public class YmlTemplateInjectCore {
      */
     private static final String TARGET_YML_PATH = "/src/main/resources/application.yml";
 
+    /**
+     * 把模板注入yml
+     * @param prop 数据源属性类
+     * @param modulePath 模块路径
+     */
     public static void inject(DataSourceProperties prop, String modulePath) {
         var ymlFile = Path.of(modulePath, TARGET_YML_PATH);
 

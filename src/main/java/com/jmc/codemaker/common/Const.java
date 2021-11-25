@@ -1,5 +1,10 @@
 package com.jmc.codemaker.common;
 
+/**
+ * 常量类
+ * @since 1.0
+ * @author Jmc
+ */
 public interface Const {
     /**
      * 控制台蓝色字符串

@@ -17,17 +17,20 @@ import java.lang.annotation.*;
 public @interface CodeMaker {
     /**
      * 需要导入的数据库表名
+     * @return 表名数组
      */
     String[] tables();
 
     /**
      * 数据库表前缀，前缀不加入JavaBean类名
+     * @return 表前缀数组
      * @since 1.4
      */
     String[] tablePrefix() default {};
 
     /**
      * 自动注入层级属性（@autowired）
+     * @return 是否自动注入
      * @since 1.1
      */
     boolean autowired() default false;
