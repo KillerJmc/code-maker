@@ -3,8 +3,8 @@ package com.jmc.codemaker.core;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.jmc.codemaker.common.Const;
 import com.jmc.io.Files;
-import com.jmc.lang.extend.Strs;
-import com.jmc.lang.extend.Tries;
+import com.jmc.lang.Strs;
+import com.jmc.lang.Tries;
 
 import java.io.File;
 import java.util.Map;

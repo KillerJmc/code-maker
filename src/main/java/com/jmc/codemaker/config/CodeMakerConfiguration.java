@@ -4,9 +4,9 @@ import com.jmc.codemaker.anno.CodeMaker;
 import com.jmc.codemaker.common.Const;
 import com.jmc.codemaker.core.*;
 import com.jmc.io.Files;
-import com.jmc.lang.extend.Outs;
-import com.jmc.lang.extend.Strs;
-import com.jmc.lang.extend.Tries;
+import com.jmc.lang.Outs;
+import com.jmc.lang.Strs;
+import com.jmc.lang.Tries;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -47,14 +47,15 @@ public class CodeMakerConfiguration implements InitializingBean {
 
         // 获取CodeMaker注解内容
         var anno = appClass.getAnnotation(CodeMaker.class);
-        String[] tables = anno.tables();
+        String[] include = anno.include();
+        String[] exclude = anno.exclude();
         String[] tablePrefix = anno.tablePrefix();
         boolean autowired = anno.autowired();
 
         Outs.newLine(() -> {
             // 开始自动生成代码
             CodeMakerCore.make(dataSourceProperties, modulePath, appPackageName,
-                    authorName, tables, tablePrefix, autowired);
+                    authorName, include, exclude, tablePrefix, autowired);
 
             // 清除项目中无用的文件
             FileCleanCore.clean(modulePath);

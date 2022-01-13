@@ -33,7 +33,7 @@ Generate code for a **Spring Boot** project.
 1. Create a new **Spring Boot** project.
 2. Add dependency for this module.
 3. Add **spring.datasource config** into **application.properties** or **application.yml**
-4. Write **@CodeMaker(tables = {tableName1, tableName2,...})** on the application class.
+4. Write **@CodeMaker** on the application class.
 5. **Launch** the application.
 
 ## Function
@@ -45,7 +45,9 @@ Generate code for a **Spring Boot** project.
 + Delete itself silently after above operations.
 
 ## Feature
-+ You can add  **autowired** arg on **@CodeMaker** to specify whether to add **the dependencies between layers**.
-+ You can add  **tablePrefix** arg on **@CodeMaker** to specify the **table prefixes**, these prefixes **will not**
+You can specify following properties in **@CodeMaker**
++ Add **include** arg to include tables.
++ Add **include** arg to exclude tables.
++ Add  **tablePrefix** arg to specify the **table prefixes**, these prefixes **will not**
 join the class name of **Java Bean** corresponding to them.
-
++ Add **autowired** arg to  specify whether to add the **dependencies** between components and their **parents**.

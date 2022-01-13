@@ -1,7 +1,7 @@
 package com.jmc.codemaker.core;
 
 import com.jmc.codemaker.common.Const;
-import com.jmc.lang.extend.Tries;
+import com.jmc.lang.Tries;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

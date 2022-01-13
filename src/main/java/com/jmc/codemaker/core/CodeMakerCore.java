@@ -21,12 +21,20 @@ public class CodeMakerCore {
      * @param modulePath 模块路径
      * @param packageName 模块根包名
      * @param authorName 作者名称
-     * @param tableNames 需映射的表名
+     * @param include 需包含的表名
+     * @param exclude 需排除的表名
      * @param tablePrefix 表前缀
      * @param autowired 是否自动注入
      */
-    public static void make(DataSourceProperties prop, String modulePath, String packageName,
-                            String authorName, String[] tableNames, String[] tablePrefix, boolean autowired) {
+    public static void make(DataSourceProperties prop,
+                            String modulePath,
+                            String packageName,
+                            String authorName,
+                            String[] include,
+                            String[] exclude,
+                            String[] tablePrefix,
+                            boolean autowired)
+    {
         FastAutoGenerator
                 .create(prop.getUrl(), prop.getUsername(), prop.getPassword())   // 连接数据库
                 .globalConfig(builder ->                                         // -------- 全局配置 ---------
@@ -40,7 +48,8 @@ public class CodeMakerCore {
                                .mapper("dao")                                    // 设置数据访问层包名为dao
                 )
                 .strategyConfig(builder ->                                       // -------- 策略配置 ---------
-                        builder.addInclude(tableNames)                           // 设置需要导入的数据库表名
+                        builder.addInclude(include)                              // 设置需要导入的数据库表名
+                               .addExclude(exclude)                              // 设置需要排除的数据库表名
                                .addTablePrefix(tablePrefix)                      // 设置表前缀
                                .serviceBuilder()
                                    .formatServiceFileName("%sService")           // service类命名为xxxService
@@ -52,7 +61,7 @@ public class CodeMakerCore {
                 )
                 .injectionConfig(builder ->                                      // ------ 自定义注入配置-------
                         builder.customMap(Map.of(                                // 配置自定义注入
-                            "autowired", autowired                           // map属性：是否自动注入层级架构
+                            "autowired", autowired                               // map属性：是否自动注入层级架构
                         ))
                 )                                                                // --------------------------
                 .templateConfig(builder -> builder.disable(TemplateType.XML))    // 模板配置 -> 禁止产生Mapper.xml文件

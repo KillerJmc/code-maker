@@ -2,7 +2,7 @@ package com.jmc.codemaker.core;
 
 import com.jmc.codemaker.common.Const;
 import com.jmc.io.Files;
-import com.jmc.lang.extend.Strs;
+import com.jmc.lang.Strs;
 import org.springframework.util.Assert;
 
 import java.io.File;
