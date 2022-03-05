@@ -50,7 +50,9 @@ public class CodeMakerConfiguration implements InitializingBean {
         String[] include = anno.include();
         String[] exclude = anno.exclude();
         String[] tablePrefix = anno.tablePrefix();
-        boolean autowired = anno.autowired();
+        var autowired = anno.autowired();
+        var injectPom = anno.injectPom();
+        var injectYml = anno.injectYml();
 
         Outs.newLine(() -> {
             // 开始自动生成代码
@@ -60,14 +62,20 @@ public class CodeMakerConfiguration implements InitializingBean {
             // 清除项目中无用的文件
             FileCleanCore.clean(modulePath);
 
-            // yml模板注入
-            YmlTemplateInjectCore.inject(dataSourceProperties, modulePath);
+            // 如果用户确定注入pom文件模板
+            if (injectPom) {
+                // 进行pom文件模板注入
+                PomTemplateInjectCore.inject(modulePath);
+            }
 
-            // pom文件模板注入
-            PomTemplateInjectCore.inject(modulePath);
+            // 如果用户确定注入yml文件模板
+            if (injectYml) {
+                // 进行yml文件模板注入
+                YmlTemplateInjectCore.inject(dataSourceProperties, modulePath);
+            }
 
-            // 清除启动类中CodeMaker的相关代码
-            ApplicationCleanCore.clean(appJavaPath);
+            // 清除CodeMaker相关依赖
+            ApplicationCleanCore.clean(appJavaPath, modulePath);
 
             System.out.printf(Const.BLUE_MSG, "\nCodeMaker: 项目构建成功！\n");
         });

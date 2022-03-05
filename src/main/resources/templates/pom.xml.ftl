@@ -6,14 +6,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.0</version>
+        <version>2.6.4</version>
     </parent>
 
 <#-- these args will be injected by class PomTemplateInjectCore -->
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
-    <name>${name}</name>
 
     <dependencies>
         <dependency>
@@ -36,7 +35,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3.4</version>
+            <version>3.5.1</version>
         </dependency>
 
         <dependency>

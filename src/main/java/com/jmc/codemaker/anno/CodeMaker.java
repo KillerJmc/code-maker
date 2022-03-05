@@ -41,4 +41,20 @@ public @interface CodeMaker {
      * @since 1.1
      */
     boolean autowired() default true;
+
+    /**
+     * 自动注入pom文件模板
+     * @return 是否自动注入
+     * @since 1.7
+     */
+    boolean injectPom() default true;
+
+    /**
+     * 自动注入yml文件模板 <br>
+     * 当开启时，将会<strong>删除</strong>原先的properties文件，并注入yml文件 <br>
+     * 注意：不管是否开启，当用户已经配置application.yml则<strong>不会覆盖</strong>此yml文件
+     * @return 是否自动注入
+     * @since 1.7
+     */
+    boolean injectYml() default true;
 }

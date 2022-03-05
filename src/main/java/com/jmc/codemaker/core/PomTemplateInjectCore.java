@@ -25,14 +25,18 @@ public class PomTemplateInjectCore {
      * @param modulePath 模块路径
      */
     public static void inject(String modulePath) {
-        String pomPath = modulePath + "/pom.xml";
+        var pomPath = modulePath + "/pom.xml";
+        var pomContent = Files.read(pomPath);
 
-        String pomInfo = Strs.subExclusive(Files.read(pomPath), "</parent>", "<dependencies>");
+        // 如果pom文件里面存在parent标签，就从parent结束标签之后开始查找项目基本信息，否则直接从头找
+        var startStr = pomContent.contains("<parent>") ? "</parent>" : "";
+
+        // pom基本信息从开头字符串截取到 <dependencies> 标签截止
+        String pomInfo = Strs.subExclusive(pomContent, startStr, "<dependencies>");
         var paramMap = Map.of(
                 "groupId", (Object) Strs.subExclusive(pomInfo, "<groupId>", "</groupId>"),
                 "artifactId", Strs.subExclusive(pomInfo, "<artifactId>", "</artifactId>"),
-                "version", "1.0.0", // 版本号默认 1.0.0
-                "name", Strs.subExclusive(pomInfo, "<name>", "</name>")
+                "version", "1.0.0" // 版本号默认 1.0.0
         );
 
         var engine = new FreemarkerTemplateEngine() {{

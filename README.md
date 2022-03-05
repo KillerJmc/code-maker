@@ -13,7 +13,7 @@ Generate code for a **Spring Boot** project.
 ```xml
 <repositories>
     <repository>
-        <id>jmc-repo</id>
+        <id>jmc-code-maker-repo</id>
         <url>https://killerjmc.github.io/code-maker/repo/maven</url>
     </repository>
 </repositories>

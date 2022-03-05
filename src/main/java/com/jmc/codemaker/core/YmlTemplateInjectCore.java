@@ -33,6 +33,11 @@ public class YmlTemplateInjectCore {
     public static void inject(DataSourceProperties prop, String modulePath) {
         var ymlFile = Path.of(modulePath, TARGET_YML_PATH);
 
+        // 如果存在yml文件则不进行注入
+        if (Files.exists(ymlFile.toFile())) {
+            return;
+        }
+
         // 删除默认的properties文件
         Files.findDels(ymlFile.getParent().toFile(), ".properties");
 

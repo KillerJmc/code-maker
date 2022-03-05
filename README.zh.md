@@ -13,7 +13,7 @@
 ```xml
 <repositories>
     <repository>
-        <id>jmc-repo</id>
+        <id>jmc-code-maker-repo</id>
         <url>https://killerjmc.gitee.io/code-maker/repo/maven</url>
     </repository>
 </repositories>
