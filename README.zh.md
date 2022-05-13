@@ -1,3 +1,5 @@
+中文 &nbsp; | &nbsp; [English](README.md)
+
 # code-maker
 
 ## 介绍
@@ -14,7 +16,7 @@
 <repositories>
     <repository>
         <id>jmc-code-maker-repo</id>
-        <url>https://killerjmc.gitee.io/code-maker/repo/maven</url>
+        <url>https://killerjmc.github.io/code-maker/repo/maven</url>
     </repository>
 </repositories>
 ```
