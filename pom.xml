@@ -12,13 +12,12 @@
 
     <groupId>com.jmc</groupId>
     <artifactId>code-maker</artifactId>
-    <version>1.7.0</version>
-    <name>code-maker</name>
+    <version>1.7.1</version>
 
     <repositories>
         <repository>
             <id>jmc-utils-repo</id>
-            <url>https://killerjmc.github.io/jmc-utils/repo/maven</url>
+            <url>https://killerjmc.github.io/jmc-utils/repo</url>
         </repository>
     </repositories>
 
@@ -59,14 +58,14 @@
         <dependency>
             <groupId>com.jmc</groupId>
             <artifactId>jmc-utils</artifactId>
-            <version>2.1.0</version>
+            <version>2.6.0</version>
         </dependency>
     </dependencies>
 
     <distributionManagement>
         <repository>
             <id>jmc-code-maker-repo</id>
-            <url>file://${project.basedir}/repo/maven</url>
+            <url>file://${project.basedir}/repo</url>
         </repository>
     </distributionManagement>
 

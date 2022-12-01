@@ -12,23 +12,21 @@
 + Maven
 
 1. 添加仓库
-```xml
-<repositories>
+    ```xml
     <repository>
         <id>jmc-code-maker-repo</id>
-        <url>https://killerjmc.github.io/code-maker/repo/maven</url>
+        <url>https://killerjmc.github.io/code-maker/repo</url>
     </repository>
-</repositories>
-```
+    ```
 
 2. 添加依赖
-```xml
-<dependency>
-    <groupId>com.jmc</groupId>
-    <artifactId>code-maker</artifactId>
-    <version>latest version</version>
-</dependency>
-```
+    ```xml
+    <dependency>
+        <groupId>com.jmc</groupId>
+        <artifactId>code-maker</artifactId>
+        <version>latest-version</version>
+    </dependency>
+    ```
 
 
 ## 用法
