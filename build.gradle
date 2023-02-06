@@ -44,6 +44,16 @@ publishing {
     publications {
         release(MavenPublication) {
             from components.java
+
+            // Add Gradle repo to pom
+            pom.withXml {
+                def repoRootNode = asNode().appendNode("repositories")
+                project.repositories.each {
+                    def repoNode = repoRootNode.appendNode("repository")
+                    repoNode.appendNode("id", it.name)
+                    repoNode.appendNode("url", it.url)
+                }
+            }
         }
     }
 

@@ -56,4 +56,30 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <repositories>
+    <repository>
+      <id>maven</id>
+      <url>https://maven.aliyun.com/repository/central</url>
+    </repository>
+    <repository>
+      <id>maven2</id>
+      <url>https://maven.aliyun.com/repository/jcenter</url>
+    </repository>
+    <repository>
+      <id>maven3</id>
+      <url>https://maven.aliyun.com/repository/google</url>
+    </repository>
+    <repository>
+      <id>maven4</id>
+      <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+    </repository>
+    <repository>
+      <id>MavenRepo</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>maven5</id>
+      <url>https://killerjmc.github.io/jmc-utils/repo</url>
+    </repository>
+  </repositories>
 </project>
