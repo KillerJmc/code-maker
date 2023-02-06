@@ -6,13 +6,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>3.0.1</version>
     </parent>
 
-<#-- these args will be injected by class PomTemplateInjectCore -->
+    <#-- these args will be injected by class PomTemplateInjectCore -->
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
+
+    <properties>
+        <mybatis-plus.version>3.5.3</mybatis-plus.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -21,21 +25,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${r'${mybatis-plus.version}'}</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.1</version>
         </dependency>
 
         <dependency>

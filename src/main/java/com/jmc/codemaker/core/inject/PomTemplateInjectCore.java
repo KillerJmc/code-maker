@@ -1,6 +1,7 @@
-package com.jmc.codemaker.core;
+package com.jmc.codemaker.core.inject;
 
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.jmc.codemaker.anno.CodeMaker;
 import com.jmc.codemaker.common.Const;
 import com.jmc.io.Files;
 import com.jmc.lang.Strs;
@@ -16,15 +17,11 @@ import java.util.Map;
  */
 public class PomTemplateInjectCore {
     /**
-     * pom模板路径
-     */
-    private static final String POM_TEMPLATE_PATH = "templates/pom.xml.ftl";
-
-    /**
      * 把模板注入pom.xml
      * @param modulePath 模块路径
+     * @param anno CodeMaker注解
      */
-    public static void inject(String modulePath) {
+    public static void inject(String modulePath, CodeMaker anno) {
         var pomPath = modulePath + "/pom.xml";
         var pomContent = Files.read(pomPath);
 
@@ -43,7 +40,16 @@ public class PomTemplateInjectCore {
             init(this.getConfigBuilder());
         }};
 
-        Tries.tryThis(() -> engine.writer(paramMap, POM_TEMPLATE_PATH, new File(pomPath)));
+        // 通过判断持久化框架类型确定模块路径前缀
+        var templatePrefixPath = switch (anno.persistenceFramework()) {
+            case JPA -> Const.JPA_TEMPLATE_PATH;
+            case MYBATIS_PLUS -> Const.MYBATIS_PLUS_TEMPLATE_PATH;
+        };
+
+        // pom模板文件路径
+        var pomTemplateFilePath = templatePrefixPath + "pom.xml.ftl";
+
+        Tries.tryThis(() -> engine.writer(paramMap, pomTemplateFilePath, new File(pomPath)));
 
         System.out.printf(Const.BLUE_MSG, "CodeMaker: pom文件模板注入完毕！\n");
     }

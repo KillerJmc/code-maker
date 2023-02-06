@@ -1,4 +1,4 @@
-package com.jmc.codemaker.core;
+package com.jmc.codemaker.core.inject;
 
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.jmc.codemaker.common.Const;
@@ -18,7 +18,7 @@ public class YmlTemplateInjectCore {
     /**
      * 本模块中yml文件模板的路径
      */
-    private static final String YML_TEMPLATE_PATH = "templates/application.yml.ftl";
+    private static final String YML_TEMPLATE_PATH = "/templates/application.yml.ftl";
 
     /**
      * 创建代码的模块中yml文件路径

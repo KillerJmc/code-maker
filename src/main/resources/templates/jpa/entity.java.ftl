@@ -1,8 +1,8 @@
 package ${package.Entity};
 
 import java.time.*;
+import jakarta.persistence.*;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.*;
 
 /**
  * ${table.comment!}
@@ -11,22 +11,25 @@ import com.baomidou.mybatisplus.annotation.*;
 @Data
 <#-- if there has table prefixes, add annotation -->
 <#if table.convert>
-@TableName("${table.name}")
+@Entity(name = "${table.name}")
+<#else>
+@Entity
 </#if>
 public class ${entity} {
 <#-- list and inject table fields -->
 <#list table.fields as field>
-
     <#-- comments -->
     <#if field.comment!?length gt 0>
     /**
      * ${field.comment}
      */
     </#if>
-    <#-- PK -->
+    <#-- primary key -->
     <#if field.keyIdentityFlag>
-    @TableId(type = IdType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
     private ${field.propertyType} ${field.propertyName};
+
 </#list>
 }

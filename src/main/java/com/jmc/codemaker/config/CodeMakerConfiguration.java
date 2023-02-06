@@ -2,7 +2,12 @@ package com.jmc.codemaker.config;
 
 import com.jmc.codemaker.anno.CodeMaker;
 import com.jmc.codemaker.common.Const;
-import com.jmc.codemaker.core.*;
+import com.jmc.codemaker.core.clean.DependencyCleanCore;
+import com.jmc.codemaker.core.clean.FileCleanCore;
+import com.jmc.codemaker.core.inject.CodeTemplateInjectCore;
+import com.jmc.codemaker.core.inject.GradleTemplateInjectCore;
+import com.jmc.codemaker.core.inject.PomTemplateInjectCore;
+import com.jmc.codemaker.core.inject.YmlTemplateInjectCore;
 import com.jmc.io.Files;
 import com.jmc.lang.Outs;
 import com.jmc.lang.Strs;
@@ -47,25 +52,20 @@ public class CodeMakerConfiguration implements InitializingBean {
 
         // 获取CodeMaker注解内容
         var anno = appClass.getAnnotation(CodeMaker.class);
-        String[] include = anno.include();
-        String[] exclude = anno.exclude();
-        String[] tablePrefix = anno.tablePrefix();
-        var autowired = anno.autowired();
-        var injectPom = anno.injectPom();
+        var buildType = anno.buildType();
         var injectYml = anno.injectYml();
 
         Outs.newLine(() -> {
             // 开始自动生成代码
-            CodeMakerCore.make(dataSourceProperties, modulePath, appPackageName,
-                    authorName, include, exclude, tablePrefix, autowired);
+            CodeTemplateInjectCore.make(dataSourceProperties, modulePath, appPackageName, authorName, anno);
 
             // 清除项目中无用的文件
             FileCleanCore.clean(modulePath);
 
-            // 如果用户确定注入pom文件模板
-            if (injectPom) {
-                // 进行pom文件模板注入
-                PomTemplateInjectCore.inject(modulePath);
+            // 注入Maven或者Gradle模板
+            switch (buildType) {
+                case MAVEN -> PomTemplateInjectCore.inject(modulePath, anno);
+                case GRADLE -> GradleTemplateInjectCore.inject(modulePath, anno);
             }
 
             // 如果用户确定注入yml文件模板
@@ -75,7 +75,7 @@ public class CodeMakerConfiguration implements InitializingBean {
             }
 
             // 清除CodeMaker相关依赖
-            ApplicationCleanCore.clean(appJavaPath, modulePath);
+            DependencyCleanCore.clean(appJavaPath);
 
             System.out.printf(Const.BLUE_MSG, "\nCodeMaker: 项目构建成功！\n");
         });
@@ -94,11 +94,16 @@ public class CodeMakerConfiguration implements InitializingBean {
                 Thread.currentThread().getContextClassLoader().getResource("")
         ).toURI();
 
-        // 通过访问classPath的上级目录获取模块根路径
-        return Path.of(classPathUri)
-                   .getParent()
-                   .getParent()
-                   .toString();
+        // 真实的类加载路径（截取到classes文件夹）
+        var realClassPath = Strs.subInclusive(
+                Path.of(classPathUri).toFile().getAbsolutePath(), "", "classes"
+        );
+
+        // 通过访问类加载的上两级目录获取模块根路径
+        return Path.of(realClassPath)
+                .getParent()
+                .getParent()
+                .toString();
     }
 
     /**

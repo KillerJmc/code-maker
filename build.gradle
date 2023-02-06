@@ -1,0 +1,55 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "3.0.1"
+    id "io.spring.dependency-management" version "1.1.0"
+    id "maven-publish"
+}
+
+group "com.jmc"
+version "2.0.0"
+
+sourceCompatibility = "17"
+
+ext {
+    mybatisPlusVersion = "3.5.2"
+    jmcUtilsVersion = "2.7.0"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://killerjmc.github.io/jmc-utils/repo" }
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "com.baomidou:mybatis-plus:$mybatisPlusVersion"
+    runtimeOnly "com.mysql:mysql-connector-j"
+    implementation "com.baomidou:mybatis-plus-generator:$mybatisPlusVersion"
+    implementation "org.freemarker:freemarker"
+    implementation "com.jmc:jmc-utils:$jmcUtilsVersion"
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "$rootDir/repo"
+        }
+    }
+}

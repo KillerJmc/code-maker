@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
+import static com.jmc.codemaker.anno.BuildType.GRADLE;
+import static com.jmc.codemaker.anno.PersistenceFramework.JPA;
+
 /**
  * 开启自动生成代码的注解类
  * @since 1.0
@@ -15,6 +18,20 @@ import java.lang.annotation.*;
 @Documented
 @Import(CodeMakerConfiguration.class)
 public @interface CodeMaker {
+    /**
+     * 构建类型
+     * @return 构建类型
+     * @since 2.0
+     */
+    BuildType buildType() default GRADLE;
+
+    /**
+     * 持久化框架类型
+     * @return 持久化框架类型
+     * @since 2.0
+     */
+    PersistenceFramework persistenceFramework() default JPA;
+
     /**
      * 需要导入的数据库表名（为空则导入所有表）
      * @return 被导入的表名数组
@@ -41,13 +58,6 @@ public @interface CodeMaker {
      * @since 1.1
      */
     boolean autowired() default true;
-
-    /**
-     * 自动注入pom文件模板
-     * @return 是否自动注入
-     * @since 1.7
-     */
-    boolean injectPom() default true;
 
     /**
      * 自动注入yml文件模板 <br>
