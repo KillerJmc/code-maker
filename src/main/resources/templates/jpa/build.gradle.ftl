@@ -4,6 +4,7 @@ plugins {
     id "io.spring.dependency-management" version "1.1.0"
 }
 
+<#-- these args will be injected by class GradleTemplateInjectCore -->
 group = "${group}"
 version = "${version}"
 sourceCompatibility = "17"

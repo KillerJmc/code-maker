@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 <#list table.fields as field>
+    <#-- if table field is primary key (id) -->
     <#if field.keyIdentityFlag>
 public interface ${table.mapperName} extends JpaRepository<${entity}, ${field.propertyType}> {
 

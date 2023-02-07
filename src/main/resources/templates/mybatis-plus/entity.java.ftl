@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.annotation.*;
  * @author ${author}
  */
 @Data
-<#-- if there has table prefixes, add annotation -->
 <#if table.convert>
 @TableName("${table.name}")
 </#if>

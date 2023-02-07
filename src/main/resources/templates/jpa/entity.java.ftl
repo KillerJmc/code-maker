@@ -9,7 +9,6 @@ import lombok.Data;
  * @author ${author}
  */
 @Data
-<#-- if there has table prefixes, add annotation -->
 <#if table.convert>
 @Entity(name = "${table.name}")
 <#else>

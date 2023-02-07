@@ -1,7 +1,7 @@
 package ${package.ServiceImpl};
 
 import ${package.Service}.${table.serviceName};
-<#-- these imports will be added if user specify autowired in @CodeMaker -->
+<#-- if user specify autowired in @CodeMaker -->
 <#if autowired>
 import ${package.Mapper}.${table.mapperName};
 import lombok.RequiredArgsConstructor;
@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
  * @author ${author}
  */
 @Service
-<#-- this annotation will be added if user specify autowired in @CodeMaker -->
 <#if autowired>
 @RequiredArgsConstructor
 </#if>
 public class ${table.serviceImplName} implements ${table.serviceName} {
-<#-- this arg will be added if user specify autowired in @CodeMaker -->
 <#if autowired>
     private final ${table.mapperName} ${table.mapperName? uncap_first};
 </#if>

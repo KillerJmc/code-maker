@@ -27,11 +27,11 @@
         {
           "name": "code-maker-2.0.0.jar",
           "url": "code-maker-2.0.0.jar",
-          "size": 32555,
-          "sha512": "d429c5197de1babb2a20538dc3ee577600613cb3b1e20ad985c2785df77e2e63e7b1700f2570aa07089a15f47b09a97882180d3725c7e991f9b5d43f98f29afb",
-          "sha256": "b6b3c8f35293b3cb7758e03f86d608af5d896c22214eed8c23cbfc4114b76811",
-          "sha1": "bc7ec40e11a8dc0c6eae398b7644657aba67ac9b",
-          "md5": "41414308af6b346ae4ac47eb93103d15"
+          "size": 32560,
+          "sha512": "a55d65ded7df44ba1e2604823f73b1e96a4f4cbbd95458b637b317a22c038ad1240831520e1408eb857aa03feb3261597c9d519c31145bbcf81dc339b470c146",
+          "sha256": "0768308f810989b1c521d347d99213984daa1f0e90514b0223077d8ae0d58ebd",
+          "sha1": "c00da2bb10720d184ade9fd88013007ac72b3aef",
+          "md5": "6b7504721a7cacaeb0ec42e21af289b7"
         }
       ]
     },
@@ -83,11 +83,11 @@
         {
           "name": "code-maker-2.0.0.jar",
           "url": "code-maker-2.0.0.jar",
-          "size": 32555,
-          "sha512": "d429c5197de1babb2a20538dc3ee577600613cb3b1e20ad985c2785df77e2e63e7b1700f2570aa07089a15f47b09a97882180d3725c7e991f9b5d43f98f29afb",
-          "sha256": "b6b3c8f35293b3cb7758e03f86d608af5d896c22214eed8c23cbfc4114b76811",
-          "sha1": "bc7ec40e11a8dc0c6eae398b7644657aba67ac9b",
-          "md5": "41414308af6b346ae4ac47eb93103d15"
+          "size": 32560,
+          "sha512": "a55d65ded7df44ba1e2604823f73b1e96a4f4cbbd95458b637b317a22c038ad1240831520e1408eb857aa03feb3261597c9d519c31145bbcf81dc339b470c146",
+          "sha256": "0768308f810989b1c521d347d99213984daa1f0e90514b0223077d8ae0d58ebd",
+          "sha1": "c00da2bb10720d184ade9fd88013007ac72b3aef",
+          "md5": "6b7504721a7cacaeb0ec42e21af289b7"
         }
       ]
     },
@@ -103,11 +103,11 @@
         {
           "name": "code-maker-2.0.0-sources.jar",
           "url": "code-maker-2.0.0-sources.jar",
-          "size": 19542,
-          "sha512": "77ea7ef18fb6922faafb157c468045495ad25a23b02e6a6e30162a2d022eca529e3a3c0c30d0a5b3a22f585a27a5965d0b0e22dd289c236a3d46041df021702d",
-          "sha256": "2e976855af7d8ff3f179598c0137f13e7a6c9330c01d4118d0f70b12da8a752f",
-          "sha1": "7a6b6c8b97e1b368f3985efa8dcc3b238df953e5",
-          "md5": "883292c51182d480ab618d168f123035"
+          "size": 19547,
+          "sha512": "0e38aaa1ed541ff2d48e67c6d1b6dd3e2a5b33b3c524e535753890bbaa9a8dbc4ac4b2e4605547469a97c6f657b7d0604fb642b1d6b70a92cd9c35495cb084b3",
+          "sha256": "f234efdfe988e93213643d7ccbfd19f8bf36286f3c2cb98be6c65ba044878554",
+          "sha1": "81110ab6e21f0c8ae61fcf455d3ca060a2f78f42",
+          "md5": "d0d88a5468590c94ea3a6fbd743221a0"
         }
       ]
     },
