@@ -36,6 +36,11 @@ java {
     withJavadocJar()
 }
 
+jar {
+    // Solve Maven dependency problem: Remove "-plain" string in jar file name
+    archiveClassifier.set("")
+}
+
 javadoc {
     options.encoding = "UTF-8"
 }
@@ -45,7 +50,7 @@ publishing {
         release(MavenPublication) {
             from components.java
 
-            // Add Gradle repo to pom
+            // Solve Maven dependency problem: Add Gradle repo to pom.xml
             pom.withXml {
                 def repoRootNode = asNode().appendNode("repositories")
                 project.repositories.each {

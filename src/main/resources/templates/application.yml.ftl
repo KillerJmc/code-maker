@@ -3,7 +3,6 @@ server:
 
 spring:
   datasource:
-    <#-- these args will be injected by class YmlTemplateInjectCode -->
     url: ${url}
     username: ${username}
     password: ${password}

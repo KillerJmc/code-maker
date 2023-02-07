@@ -18,8 +18,9 @@
   1. 添加仓库
      ```groovy
      maven { url "https://killerjmc.github.io/code-maker/repo" }
+     maven { url "https://killerjmc.github.io/jmc-utils/repo" }
      ```
-
+     
   2. 添加依赖
 
      ```groovy

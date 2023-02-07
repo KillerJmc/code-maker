@@ -18,8 +18,9 @@ Generate code for a **Spring Boot** project.
   1. Add repository
       ```groovy
       maven { url "https://killerjmc.github.io/code-maker/repo" }
+      maven { url "https://killerjmc.github.io/jmc-utils/repo" }
       ```
-
+      
   2. Add dependency
      ```groovy
      implementation "com.jmc:code-maker:latestVersion"

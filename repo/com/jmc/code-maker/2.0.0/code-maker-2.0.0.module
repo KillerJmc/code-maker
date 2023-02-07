@@ -25,13 +25,13 @@
       },
       "files": [
         {
-          "name": "code-maker-2.0.0-plain.jar",
-          "url": "code-maker-2.0.0-plain.jar",
-          "size": 32607,
-          "sha512": "3684aadd1623dad2ff5e352cdef2f3455cb43a254110dfd03fcb7b533ef8ae26bf2b51ccf45b17a0e4a62c20aa8efa3c939ebb1bd22eaabfc148696fb90e025e",
-          "sha256": "7099ae9366e2d813235ae60b1d5a7b97bddf5f6bfa4a9b4d457e8c577382bb0d",
-          "sha1": "d2e38775f6b021bd7503928926bfb280d1855601",
-          "md5": "13e884fa263205bbab8455151cb00869"
+          "name": "code-maker-2.0.0.jar",
+          "url": "code-maker-2.0.0.jar",
+          "size": 32555,
+          "sha512": "d429c5197de1babb2a20538dc3ee577600613cb3b1e20ad985c2785df77e2e63e7b1700f2570aa07089a15f47b09a97882180d3725c7e991f9b5d43f98f29afb",
+          "sha256": "b6b3c8f35293b3cb7758e03f86d608af5d896c22214eed8c23cbfc4114b76811",
+          "sha1": "bc7ec40e11a8dc0c6eae398b7644657aba67ac9b",
+          "md5": "41414308af6b346ae4ac47eb93103d15"
         }
       ]
     },
@@ -81,13 +81,13 @@
       ],
       "files": [
         {
-          "name": "code-maker-2.0.0-plain.jar",
-          "url": "code-maker-2.0.0-plain.jar",
-          "size": 32607,
-          "sha512": "3684aadd1623dad2ff5e352cdef2f3455cb43a254110dfd03fcb7b533ef8ae26bf2b51ccf45b17a0e4a62c20aa8efa3c939ebb1bd22eaabfc148696fb90e025e",
-          "sha256": "7099ae9366e2d813235ae60b1d5a7b97bddf5f6bfa4a9b4d457e8c577382bb0d",
-          "sha1": "d2e38775f6b021bd7503928926bfb280d1855601",
-          "md5": "13e884fa263205bbab8455151cb00869"
+          "name": "code-maker-2.0.0.jar",
+          "url": "code-maker-2.0.0.jar",
+          "size": 32555,
+          "sha512": "d429c5197de1babb2a20538dc3ee577600613cb3b1e20ad985c2785df77e2e63e7b1700f2570aa07089a15f47b09a97882180d3725c7e991f9b5d43f98f29afb",
+          "sha256": "b6b3c8f35293b3cb7758e03f86d608af5d896c22214eed8c23cbfc4114b76811",
+          "sha1": "bc7ec40e11a8dc0c6eae398b7644657aba67ac9b",
+          "md5": "41414308af6b346ae4ac47eb93103d15"
         }
       ]
     },
@@ -103,11 +103,11 @@
         {
           "name": "code-maker-2.0.0-sources.jar",
           "url": "code-maker-2.0.0-sources.jar",
-          "size": 19594,
-          "sha512": "17d49087e16190ffbd0ad77ba84d898b60ebeb2e5d4fd83dd0a713ce9e224eb3d79c844275d7debd7686bd1825a0d9f3acf7b3c87fe326289746ca45aecf62c9",
-          "sha256": "2a8ec83bd5f7ce2e7029621cae847276994c0b5e71c8a02b2fa6d0838e3a566a",
-          "sha1": "a2ceadc50061a4cad260118074854484bc175ea0",
-          "md5": "47d94d39f5d6f7830a1def0fd72435a9"
+          "size": 19542,
+          "sha512": "77ea7ef18fb6922faafb157c468045495ad25a23b02e6a6e30162a2d022eca529e3a3c0c30d0a5b3a22f585a27a5965d0b0e22dd289c236a3d46041df021702d",
+          "sha256": "2e976855af7d8ff3f179598c0137f13e7a6c9330c01d4118d0f70b12da8a752f",
+          "sha1": "7a6b6c8b97e1b368f3985efa8dcc3b238df953e5",
+          "md5": "883292c51182d480ab618d168f123035"
         }
       ]
     },
@@ -124,10 +124,10 @@
           "name": "code-maker-2.0.0-javadoc.jar",
           "url": "code-maker-2.0.0-javadoc.jar",
           "size": 158654,
-          "sha512": "65cee9ffd8866cffa12327ace837cee326e97a0515704b34d87c7ee5191e27bd934bf7b152569bd81d8eb5350e925e712a5e494eecd7cce8bd89259f7666bd2d",
-          "sha256": "abfd715bea87385f1da5f538db75ff626284b39b94750d673b01ae25936bfd35",
-          "sha1": "3e4550809bc33f73311333787f311fe217682c6b",
-          "md5": "b51784eb3d70cea8ba9eb233e38fce89"
+          "sha512": "306c06e0b471388c6f6a16098adfa44edb5587870f324d2bb327758547e02f843160bf4627b172786ab822be9c18d03e8b3f024db83ea9d4e948b89baaedb7e4",
+          "sha256": "35fe597e4c2998d42207b51639170e0b3d362e7ed60526975e4897d83c3139c2",
+          "sha1": "ac2bb8967bf98a22c0917d9456e610cdcc17ff63",
+          "md5": "b8fdf6f6ed38c86f61536a5f2adf1a79"
         }
       ]
     }
