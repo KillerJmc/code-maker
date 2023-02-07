@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
-import static com.jmc.codemaker.anno.BuildType.GRADLE;
 import static com.jmc.codemaker.anno.PersistenceFramework.JPA;
 
 /**
@@ -18,13 +17,6 @@ import static com.jmc.codemaker.anno.PersistenceFramework.JPA;
 @Documented
 @Import(CodeMakerConfiguration.class)
 public @interface CodeMaker {
-    /**
-     * 构建类型
-     * @return 构建类型
-     * @since 2.0
-     */
-    BuildType buildType() default GRADLE;
-
     /**
      * 持久化框架类型
      * @return 持久化框架类型

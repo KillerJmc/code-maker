@@ -16,11 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 激活自动生成代码的配置类
@@ -32,6 +33,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CodeMakerConfiguration implements InitializingBean {
     private final DataSourceProperties dataSourceProperties;
+
+    /**
+     * 构建类型枚举
+     * @since 2.0
+     * @author Jmc
+     */
+    private enum BuildType { GRADLE, MAVEN }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -50,15 +58,13 @@ public class CodeMakerConfiguration implements InitializingBean {
         // 以包名的二级域名作为作者名称并将首字母大写
         var authorName = Strs.capitalize(appPackageName.split("\\.")[1]);
 
+        // 获取项目构建类型
+        var buildType = getBuildType(modulePath);
+
         // 获取CodeMaker注解内容
         var anno = appClass.getAnnotation(CodeMaker.class);
-        var buildType = anno.buildType();
-        var injectYml = anno.injectYml();
 
         Outs.newLine(() -> {
-            // 开始自动生成代码
-            CodeTemplateInjectCore.make(dataSourceProperties, modulePath, appPackageName, authorName, anno);
-
             // 清除项目中无用的文件
             FileCleanCore.clean(modulePath);
 
@@ -68,11 +74,11 @@ public class CodeMakerConfiguration implements InitializingBean {
                 case GRADLE -> GradleTemplateInjectCore.inject(modulePath, anno);
             }
 
-            // 如果用户确定注入yml文件模板
-            if (injectYml) {
-                // 进行yml文件模板注入
-                YmlTemplateInjectCore.inject(dataSourceProperties, modulePath);
-            }
+            // 注入yml文件模板
+            YmlTemplateInjectCore.inject(dataSourceProperties, modulePath, anno);
+
+            // 开始自动生成代码
+            CodeTemplateInjectCore.make(dataSourceProperties, modulePath, appPackageName, authorName, anno);
 
             // 清除CodeMaker相关依赖
             DependencyCleanCore.clean(appJavaPath);
@@ -133,5 +139,27 @@ public class CodeMakerConfiguration implements InitializingBean {
                 .replace(File.separatorChar, '.');
 
         return Tries.tryReturnsT(() -> Class.forName(appClassName));
+    }
+
+    /**
+     * 获取项目构建类型
+     * @param modulePath 模块路径
+     * @since 2.0
+     */
+    private BuildType getBuildType(String modulePath) {
+        var fs = new File(modulePath).listFiles();
+        Assert.notNull(fs, "fs不能为空");
+
+        var fileNames = Arrays.stream(fs)
+                .map(File::getName)
+                .toList();
+
+        if (fileNames.contains("pom.xml")) {
+            return BuildType.MAVEN;
+        } else if (fileNames.contains("build.gradle")) {
+            return BuildType.GRADLE;
+        } else {
+            throw new RuntimeException("Unsupported build type!");
+        }
     }
 }

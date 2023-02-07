@@ -73,7 +73,6 @@ Generate code for a **Spring Boot** project.
 
 You can specify following properties in **@CodeMaker**
 
-+ Add **buildType** arg to specify build type (**Gradle**, **Maven** or **None**).
 + Add **persistenceFramework** arg to specify persistence framwork (**JPA** or **MyBatis Plus**).
 
 + Add **include** arg to include tables.

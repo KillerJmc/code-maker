@@ -1,6 +1,7 @@
 package com.jmc.codemaker.core.inject;
 
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.jmc.codemaker.anno.CodeMaker;
 import com.jmc.codemaker.common.Const;
 import com.jmc.codemaker.config.DataSourceProperties;
 import com.jmc.io.Files;
@@ -29,9 +30,15 @@ public class YmlTemplateInjectCore {
      * 把模板注入yml
      * @param prop 数据源属性类
      * @param modulePath 模块路径
+     * @param anno CodeMaker注解
      */
-    public static void inject(DataSourceProperties prop, String modulePath) {
+    public static void inject(DataSourceProperties prop, String modulePath, CodeMaker anno) {
         var ymlFile = Path.of(modulePath, TARGET_YML_PATH);
+
+        // 如果用户不需要注入就返回
+        if (!anno.injectYml()) {
+            return;
+        }
 
         // 如果存在yml文件则不进行注入
         if (Files.exists(ymlFile.toFile())) {

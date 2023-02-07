@@ -74,7 +74,6 @@
 
 在 **@CodeMaker** 中可以指定以下属性
 
-+ **buildType** 属性可指定构建类型（**Gradle**、**Maven** 或者不指定）
 + **persistenceFramework** 属性可指定持久化框架 （**JPA** 或者 **MyBatis Plus**）
 
 + **include** 属性可指定 **导入的表**
