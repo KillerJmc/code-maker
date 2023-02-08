@@ -17,16 +17,16 @@ import java.util.Map;
  */
 public class GradleTemplateInjectCore {
     /**
-     * 把模板注入build.gradle
+     * 把模板注入gradle文件
      * @param modulePath 模块路径
      * @param anno CodeMaker注解
      */
     public static void inject(String modulePath, CodeMaker anno) {
-        var gradlePath = modulePath + "/build.gradle";
-        var gradleContent = Files.read(gradlePath);
+        var buildGradlePath = modulePath + "/build.gradle";
+        var buildGradleContent = Files.read(buildGradlePath);
 
         // 从gradle原配置中获取group属性
-        var group = (Object) Strs.subExclusive(gradleContent, "group = '", "'");
+        var group = (Object) Strs.subExclusive(buildGradleContent, "group = '", "'");
 
         var paramMap = Map.of(
                 "group", group,
@@ -43,10 +43,19 @@ public class GradleTemplateInjectCore {
             case MYBATIS_PLUS -> Const.MYBATIS_PLUS_TEMPLATE_PATH;
         };
 
-        // gradle模板文件路径
-        var gradleTemplateFilePath = templatePrefixPath + "build.gradle.ftl";
+        // build.gradle模板文件路径
+        var buildGradleTemplateFilePath = templatePrefixPath + "build.gradle.ftl";
 
-        Tries.tryThis(() -> engine.writer(paramMap, gradleTemplateFilePath, new File(gradlePath)));
+        Tries.tryThis(() -> engine.writer(paramMap, buildGradleTemplateFilePath, new File(buildGradlePath)));
+
+        // settings.gradle路径
+        var settingsGradlePath = modulePath + "/settings.gradle";
+
+        // 将其中的单引号替换成双引号
+        Files.out(
+                Files.read(settingsGradlePath).replace("'", "\""),
+                settingsGradlePath
+        );
 
         System.out.printf(Const.BLUE_MSG, "CodeMaker: gradle文件模板注入完毕！\n");
     }
